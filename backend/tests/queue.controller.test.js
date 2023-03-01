@@ -1,32 +1,30 @@
 const {
     addToQueue,
-    creditMax,
     queue,
     shiftFromQueue,
     randomCredits,
+} = require("../controllers/queue.controller");
+let {
+    twoMinutesInterval,
+    twentyFourHoursInterval,
 } = require("../controllers/queue.controller");
 
 jest.useFakeTimers();
 
 describe("Adding items to queue", () => {
-    let twoMinutesInterval;
-    beforeEach(() => {
-        global.setInterval = jest.fn();
-        global.clearInterval = jest.fn();
-    });
     afterEach(() => {
         clearInterval(twoMinutesInterval);
-        jest.useRealTimers();
+        clearInterval(twentyFourHoursInterval);
     });
 
     it("should add an item to the queue", () => {
-        const res = {};
+        const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
         addToQueue({ body: { actionType: "A" } }, res);
         expect(queue.length).toBe(1);
         expect(queue).toEqual(["A"]);
     });
     it("should add another item to the queue", () => {
-        const res = {};
+        const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
         addToQueue({ body: { actionType: "B" } }, res);
         expect(queue.length).toBe(2);
         expect(queue).toEqual(["A", "B"]);

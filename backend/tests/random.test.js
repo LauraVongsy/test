@@ -3,10 +3,18 @@ const {
     allowRandomCredits,
     randomCredits,
 } = require("../controllers/queue.controller");
+let {
+    twoMinutesInterval,
+    twentyFourHoursInterval,
+} = require("../controllers/queue.controller");
 
-//randomCredits
+jest.useFakeTimers();
 
 describe("allowRandomCredits", () => {
+    afterEach(() => {
+        clearInterval(twoMinutesInterval);
+        clearInterval(twentyFourHoursInterval);
+    });
     it("should generate random credits between 80% and 100% of the initial credits", () => {
         allowRandomCredits();
 

@@ -43,8 +43,6 @@ const shiftFromQueue = () => {
         }
 
         queue.shift();
-        console.log(randomCredits);
-        console.log(queue);
     }
 
     if (queue.length === 0) {
@@ -63,7 +61,15 @@ const addToQueue = (req, res) => {
     if (!twoMinutesInterval) {
         twoMinutesTimer();
     }
+    res.status(200).send("action ajoutée à la queue");
 };
+
+let twentyFourHoursInterval = null;
+
+const dayTimer = () => {
+    twentyFourHoursInterval = setInterval(allowRandomCredits, 20000);
+};
+dayTimer();
 
 module.exports = {
     addToQueue,
@@ -72,6 +78,10 @@ module.exports = {
     allowRandomCredits,
     randomCredits,
     creditMax,
+    twoMinutesTimer,
+    dayTimer,
+    twoMinutesInterval,
+    twentyFourHoursInterval,
 };
 
 // // The interval function that pops an element from the queue every 2 minutes,
