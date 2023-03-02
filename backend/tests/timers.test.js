@@ -17,10 +17,12 @@ describe("Two minutes timer function", () => {
         const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
         addToQueue({ body: { actionType: "A" } }, res);
 
-        jest.advanceTimersByTime(1500);
+        jest.advanceTimersByTime(1.5 * 60 * 1000);
         expect(queue.length).toBe(1);
-        jest.advanceTimersByTime(500);
+        //Action A is pushed to the queue and queue.length=1
+        jest.advanceTimersByTime(0.5 * 60 * 1000);
         expect(queue.length).toBe(0);
+        // after 2 mins A has been shifted and queue.length=0
     });
 });
 
@@ -32,11 +34,11 @@ describe("Twenty four hours timer function", () => {
     it("should generate new random credits every twenty four hours", () => {
         // Stores the initially generated randomCredits
         const previousRandomCredits = randomCredits;
-        // Check if twentyFourHoursInterval is running & has been called
+        // Checks if twentyFourHoursInterval is running & has been called
         expect(twentyFourHoursInterval).not.toBe(null);
         expect(setInterval).toHaveBeenCalledTimes(1);
         // Advance time
-        jest.advanceTimersByTime(20000);
+        jest.advanceTimersByTime(24 * 60 * 60 * 1000);
         // Require newly generated randomCredits for comparison
         randomCredits = require("../controllers/queue.controller");
         const nextRandomCredits = randomCredits;

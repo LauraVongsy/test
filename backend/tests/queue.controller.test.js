@@ -4,11 +4,13 @@ const {
     shiftFromQueue,
     randomCredits,
 } = require("../controllers/queue.controller");
+
 let {
     twoMinutesInterval,
     twentyFourHoursInterval,
 } = require("../controllers/queue.controller");
 
+//Using fake timers to test faster than with the 2mins and 24h timers
 jest.useFakeTimers();
 
 describe("Adding items to queue", () => {
@@ -16,7 +18,7 @@ describe("Adding items to queue", () => {
         clearInterval(twoMinutesInterval);
         clearInterval(twentyFourHoursInterval);
     });
-
+    //clearing intervals after testing so that jest can exit the test.
     it("should add an item to the queue", () => {
         const res = { status: jest.fn().mockReturnThis(), send: jest.fn() };
         addToQueue({ body: { actionType: "A" } }, res);
@@ -30,8 +32,6 @@ describe("Adding items to queue", () => {
         expect(queue).toEqual(["A", "B"]);
     });
 });
-
-//Enlever une action de la queue
 
 describe("Removing items from queue", () => {
     it("should decrement credits of the first action in queue and remove it from queue", () => {
