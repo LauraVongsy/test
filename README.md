@@ -14,16 +14,22 @@ Réalisation d'un code et de tests associés.
 Pour installer le projet depuis la racine:
 
 ```sh
+npm install
+```
+
+puis:
+
+```sh
 npm run install-all
 ```
 
-Vous pouvez installer le projet en faisant un:
+Vous pouvez aussi installer le projet en faisant un:
 
 ```sh
 npm install
 ```
 
-depuis la racine, le frontend et le backend.
+depuis le frontend et le backend.
 
 Le projet se lance avec la commande:
 
